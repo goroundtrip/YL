@@ -29,7 +29,6 @@ module.exports = async function handler(req, res) {
         'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
     );
 
-    // Handle preflight OPTIONS request
     if (req.method === 'OPTIONS') {
         res.status(200).end();
         return;
@@ -42,40 +41,17 @@ module.exports = async function handler(req, res) {
     try {
         const { name, email, interest } = req.body;
         console.log('Received data:', { name, email, interest });
-        
-        // Get auth token
-        const auth = await getAuthToken();
-        const sheets = google.sheets({ version: 'v4', auth });
 
-        // Verify sheet exists
-        try {
-            const sheetInfo = await sheets.spreadsheets.get({
-                spreadsheetId: SPREADSHEET_ID,
-            });
-            console.log('Sheet info:', sheetInfo.data);
-        } catch (error) {
-            console.error('Error getting sheet info:', error);
+        const scriptUrl = process.env.GOOGLE_SCRIPT_URL;
+        const response = await fetch(`${scriptUrl}?sheet=Waitlist&data=${encodeURIComponent(JSON.stringify({name, email, interest}))}`);
+
+        if (response.ok) {
+            res.status(200).json({ message: 'Successfully added to waitlist' });
+        } else {
+            throw new Error('Failed to add to waitlist');
         }
-
-        // Append data to Google Sheet
-        const response = await sheets.spreadsheets.values.append({
-            spreadsheetId: SPREADSHEET_ID,
-            range: 'Waitlist!A:C',
-            valueInputOption: 'RAW',
-            requestBody: {
-                values: [[name, email, interest]]
-            }
-        });
-
-        console.log('Google Sheets API Response:', response.data);
-
-        res.status(200).json({ message: 'Successfully added to waitlist' });
     } catch (error) {
-        console.error('Detailed Error:', {
-            message: error.message,
-            stack: error.stack,
-            response: error.response?.data
-        });
+        console.error('Error:', error);
         res.status(500).json({ 
             message: 'Error processing request',
             error: error.message 
