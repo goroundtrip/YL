@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YLori - Travel, Ticket & Tech</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <h1 class="logo">YLori</h1>
+            <p class="tagline">Travel, Ticket & Tech</p>
+        </div>
+        <div class="contact-buttons">
+            <a href="tel:+919019338080" class="contact-btn">
+                <i class="fas fa-phone"></i>
+            </a>
+            <a href="https://wa.me/919019338080" class="contact-btn">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Welcome to YLori</h2>
+                <p>Your one-stop solution for travel, tickets, and technology</p>
+            </div>
+        </section>
+
+        <section class="forms-section">
+            <div class="form-container">
+                <h3>Join Our Waitlist</h3>
+                <form id="waitlist-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="interest" name="interest" required>
+                            <option value="">Select Your Interest</option>
+                            <option value="tech">Tech</option>
+                            <option value="travel">Travel</option>
+                            <option value="event">Event</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn">Join Waitlist</button>
+                </form>
+            </div>
+
+            <div class="form-container">
+                <h3>Business Partnership</h3>
+                <form id="partnership-form">
+                    <div class="form-group">
+                        <select id="partnership-type" name="partnership-type" required>
+                            <option value="">Select Option</option>
+                            <option value="business">Join as Business Partner</option>
+                            <option value="event">Want to Post Your Event</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="partner-email" name="partner-email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="telegram-id" name="telegram-id" placeholder="Your Telegram ID" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 YLori. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
