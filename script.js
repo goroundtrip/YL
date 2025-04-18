@@ -3,8 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const waitlistForm = document.getElementById('waitlist-form');
     waitlistForm.addEventListener('submit', async function(e) {
         e.preventDefault();
+        console.log('Waitlist form submitted');
+        
         const formData = new FormData(waitlistForm);
         const data = Object.fromEntries(formData);
+        console.log('Form data:', data);
         
         try {
             const response = await fetch('/api/waitlist', {
@@ -15,14 +18,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify(data),
             });
 
+            console.log('Response status:', response.status);
+            const responseData = await response.json();
+            console.log('Response data:', responseData);
+
             if (response.ok) {
                 alert('Thank you for joining our waitlist! We will contact you soon.');
                 waitlistForm.reset();
             } else {
-                throw new Error('Network response was not ok');
+                throw new Error(responseData.message || 'Network response was not ok');
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error submitting form:', error);
             alert('There was an error submitting your form. Please try again.');
         }
     });
@@ -31,8 +38,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const partnershipForm = document.getElementById('partnership-form');
     partnershipForm.addEventListener('submit', async function(e) {
         e.preventDefault();
+        console.log('Partnership form submitted');
+        
         const formData = new FormData(partnershipForm);
         const data = Object.fromEntries(formData);
+        console.log('Form data:', data);
         
         try {
             const response = await fetch('/api/partnership', {
@@ -43,14 +53,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify(data),
             });
 
+            console.log('Response status:', response.status);
+            const responseData = await response.json();
+            console.log('Response data:', responseData);
+
             if (response.ok) {
                 alert('Thank you for your interest! We will contact you soon.');
                 partnershipForm.reset();
             } else {
-                throw new Error('Network response was not ok');
+                throw new Error(responseData.message || 'Network response was not ok');
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error submitting form:', error);
             alert('There was an error submitting your form. Please try again.');
         }
     });
